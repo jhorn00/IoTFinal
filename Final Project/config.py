@@ -1,0 +1,1 @@
+stop_var = False #used to stop app threads
