@@ -1,0 +1,320 @@
+<Atlas_IoTDDL>
+	<Atlas_Thing>
+		<Descriptive_Metadata>
+			<Thing_ATID>MyRaspberryPi</Thing_ATID>
+			<Thing_Name>IoTRaspberryPi</Thing_Name>
+			<Thing_Owner>PraveenAnbu</Thing_Owner>
+			<Thing_Vendor></Thing_Vendor>
+			<Thing_Model></Thing_Model>
+			<Thing_ReleaseDate>8/2020</Thing_ReleaseDate>
+			<Thing_Type></Thing_Type>
+			<Thing_OperatingSystem></Thing_OperatingSystem>
+			<Thing_ShortDescription></Thing_ShortDescription>
+			<LongDescription></LongDescription>
+			<Thing_SSID>MySmartSpace2</Thing_SSID>
+			<Space_Coordinates></Space_Coordinates>
+			<Space_Name></Space_Name>
+			<Space_Description></Space_Description>
+			<Space_Constraints>
+				<Temperature>
+					<Lower_Bound></Lower_Bound>
+					<Upper_Bound></Upper_Bound>
+				</Temperature>
+				<Humidity>
+					<Lower_Bound></Lower_Bound>
+					<Upper_Bound></Upper_Bound>
+				</Humidity>
+				<Voltage>
+					<Lower_Bound></Lower_Bound>
+					<Upper_Bound></Upper_Bound>
+				</Voltage>
+				<Radio_Interference_Radius></Radio_Interference_Radius>
+				<Safe_Temperature_Radius></Safe_Temperature_Radius>
+			</Space_Constraints>
+		</Descriptive_Metadata>
+		<Administrative_Metadata>
+			<Network_Manager>
+				<Module></Module>
+				<Type></Type>
+				<Network_Name>MySpaceNetwork</Network_Name>
+				<Network_Passcode>MySpaceNetwork</Network_Passcode>
+				<MulticastGroup>
+					<IP>232.1.1.1</IP>
+					<Port>1235</Port>
+				</MulticastGroup>
+				<Communication_Protocol></Communication_Protocol>
+				<InterOperableCommunication>
+					<Broker>
+						<Vendor>HiveMQ</Vendor>
+						<Dashboard>http://www.mqtt-dashboard.com/</Dashboard>
+						<IP>broker.hivemq.com</IP>
+						<Port>1883</Port>
+					</Broker>
+					<Topic>
+						<Root>/Atlas</Root>
+						<Network_MQTTClient>/Network/MQTT_Client</Network_MQTTClient>
+						<Network_PrivateBroker>/Network/Private_Broker</Network_PrivateBroker>
+						<Multicast_ThingIdentity>/Multicast/Tweet_ThingIdentity</Multicast_ThingIdentity>
+						<Multicast_EntityIdentity>/Multicast/Tweet_EntityIdentity</Multicast_EntityIdentity>
+						<Multicast_API>/Multicast/API</Multicast_API>
+						<Unicast>/Unicast/Interaction</Unicast>
+					</Topic>
+				</InterOperableCommunication>
+				<OMA_DM>
+					<AccessName>Eclipse Leshan</AccessName>
+					<IP>coap://leshan.eclipseprojects.io</IP>
+					<Port>5683</Port>
+				</OMA_DM>
+			</Network_Manager>
+			<Memory_Manager>
+				<Store_Format></Store_Format>
+				<MemoryUnit_Application></MemoryUnit_Application>
+				<MemoryUnit_Knowledge></MemoryUnit_Knowledge>
+			</Memory_Manager>
+		</Administrative_Metadata>
+		<Thing_Attachment>
+
+		</Thing_Attachment>
+		<Structural_Metadata>
+			<Number_Hardware>0</Number_Hardware>
+			<Number_Software>0</Number_Software>
+			<Number_Hybrid>0</Number_Hybrid>
+			<Number_Entities>1</Number_Entities>
+		</Structural_Metadata>
+	</Atlas_Thing>
+	<Atlas_Entities>
+		<Entity_1>
+			<Descriptive_Metadata>
+				<ID>LEDButtonCombo</ID>
+				<Name>LEDButtonCombo</Name>
+				<Owner>PraveenAnbu</Owner>
+				<Vendor></Vendor>
+				<Category></Category>
+				<Type></Type>
+				<Description></Description>
+			</Descriptive_Metadata>
+			<Services>
+				<Service_1>
+					<Name>LED1</Name>
+					<AppCategory></AppCategory>
+					<Type></Type>
+					<Keywords></Keywords>
+					<Description></Description>
+					<Contextual_Constraints>
+						<Time_Window>30seconds</Time_Window>
+						<Usage_Mode></Usage_Mode>
+						<Concurrent></Concurrent>
+					</Contextual_Constraints>
+					<Temporal_Constraints>
+						<Working>
+							<StartTime></StartTime>
+							<EndTime></EndTime>
+						</Working>
+						<Callable>
+							<StartTime></StartTime>
+							<EndTime></EndTime>
+						</Callable>
+					</Temporal_Constraints>
+					<OutputDescription>LED1Output</OutputDescription>
+					<OutputType>int</OutputType>
+					<Service_Formula><![CDATA[
+//Initializing GPIO LED
+int red = 17;
+wiringPiSetupGpio();
+pinMode(red, OUTPUT);
+//Toggling the LED 5 times with 1 sec delay
+for(int i = 0; i < 5; i++){ 
+    digitalWrite(red, HIGH);
+    //Value in ms
+    delay(1000);
+    digitalWrite(red, LOW);
+    delay(1000);
+}
+
+]]></Service_Formula>
+					<Service_NumberInputs>1</Service_NumberInputs>
+					<Service_InputTypes>int</Service_InputTypes>
+					<Service_InputDescriptions>"LED1Input"</Service_InputDescriptions>
+				</Service_1>
+				<Service_2>
+					<Name>Button1</Name>
+					<AppCategory></AppCategory>
+					<Type></Type>
+					<Keywords></Keywords>
+					<Description></Description>
+					<Contextual_Constraints>
+						<Time_Window>30seconds</Time_Window>
+						<Usage_Mode></Usage_Mode>
+						<Concurrent></Concurrent>
+					</Contextual_Constraints>
+					<Temporal_Constraints>
+						<Working>
+							<StartTime></StartTime>
+							<EndTime></EndTime>
+						</Working>
+						<Callable>
+							<StartTime></StartTime>
+							<EndTime></EndTime>
+						</Callable>
+					</Temporal_Constraints>
+					<OutputDescription>Button1Output</OutputDescription>
+					<OutputType>int</OutputType>
+					<Service_Formula><![CDATA[
+//Initializing GPIO Button
+int button = 27;
+wiringPiSetupGpio();
+pinMode(button, INPUT);
+//Looping until the button is pressed
+while(true){ 
+    if(digitalRead(button) == HIGH){
+        //Breaking out when button is pressed
+        break;
+    }
+}
+]]></Service_Formula>
+					<Service_NumberInputs>1</Service_NumberInputs>
+					<Service_InputTypes>int</Service_InputTypes>
+					<Service_InputDescriptions>"Button1Input"</Service_InputDescriptions>
+				</Service_2>
+				<Service_3>
+					<Name>ButtonLED1</Name>
+					<AppCategory></AppCategory>
+					<Type></Type>
+					<Keywords></Keywords>
+					<Description></Description>
+					<Contextual_Constraints>
+						<Time_Window>30seconds</Time_Window>
+						<Usage_Mode></Usage_Mode>
+						<Concurrent></Concurrent>
+					</Contextual_Constraints>
+					<Temporal_Constraints>
+						<Working>
+							<StartTime></StartTime>
+							<EndTime></EndTime>
+						</Working>
+						<Callable>
+							<StartTime></StartTime>
+							<EndTime></EndTime>
+						</Callable>
+					</Temporal_Constraints>
+					<OutputDescription>ButtonLED1Output</OutputDescription>
+					<OutputType>int</OutputType>
+					<Service_Formula><![CDATA[
+//Initializing GPIO Button and LED
+int green = 22;
+int button = 26;
+wiringPiSetupGpio();
+pinMode(button, INPUT);
+pinMode(green, OUTPUT);
+//Looping until Button has been pressed
+while(true){ 
+    if(digitalRead(button) == HIGH){
+        //Toggle LED with delay when button has been pressed
+        digitalWrite(green, HIGH);
+        delay(2500);
+        digitalWrite(green, LOW);
+        delay(2500);
+        //Break out of loop
+        break;
+    }
+}
+]]></Service_Formula>
+					<Service_NumberInputs>1</Service_NumberInputs>
+					<Service_InputTypes>int</Service_InputTypes>
+					<Service_InputDescriptions>"ButtonLED1Input"</Service_InputDescriptions>
+				</Service_3>
+				<Service_4>
+					<Name>ButtonLED2</Name>
+					<AppCategory></AppCategory>
+					<Type></Type>
+					<Keywords></Keywords>
+					<Description></Description>
+					<Contextual_Constraints>
+						<Time_Window>30seconds</Time_Window>
+						<Usage_Mode></Usage_Mode>
+						<Concurrent></Concurrent>
+					</Contextual_Constraints>
+					<Temporal_Constraints>
+						<Working>
+							<StartTime></StartTime>
+							<EndTime></EndTime>
+						</Working>
+						<Callable>
+							<StartTime></StartTime>
+							<EndTime></EndTime>
+						</Callable>
+					</Temporal_Constraints>
+					<OutputDescription>ButtonLED2Output</OutputDescription>
+					<OutputType>int</OutputType>
+					<Service_Formula><![CDATA[
+//Initializing GPIO Button and LED
+int green = 22;
+int button = 26;
+wiringPiSetupGpio();
+pinMode(button, INPUT);
+pinMode(green, OUTPUT);
+//Looping until Button has been pressed
+while(true){ 
+    if(digitalRead(button) == HIGH){
+        //Turn on LED and delay to prevent switch debouncing
+        digitalWrite(green, HIGH);
+        delay(1000);
+        //Loop until Button has been pressed
+        while(true){ 
+            if(digitalRead(button) == HIGH){
+                //Turn off LED and break out of loop
+                digitalWrite(green, LOW);
+                break;
+            }
+        }
+    break;
+    }
+}
+]]></Service_Formula>
+					<Service_NumberInputs>1</Service_NumberInputs>
+					<Service_InputTypes>int</Service_InputTypes>
+					<Service_InputDescriptions>"ButtonLED2Input"</Service_InputDescriptions>
+				</Service_4>
+				<Number_Services>4</Number_Services>
+			</Services>
+			<Relationships>
+				<Relationship_1>
+					<Name>ButtonTriggersLED</Name>
+					<Establisher></Establisher>
+					<Description></Description>
+					<type>control</type>
+					<Input1>Button1</Input1>
+					<Input2>LED1</Input2>
+				</Relationship_1>
+				<Relationship_2>
+					<Name>ButtonLEDContest</Name>
+					<Establisher></Establisher>
+					<Description></Description>
+					<type>contest</type>
+					<Input1>ButtonLED1</Input1>
+					<Input2>ButtonLED2</Input2>
+				</Relationship_2>
+				<Relationship_3>
+					<Name>ButtonLEDInterfere</Name>
+					<Establisher></Establisher>
+					<Description></Description>
+					<type>interfere</type>
+					<Input1>ButtonLED1</Input1>
+					<Input2>ButtonLED2</Input2>
+				</Relationship_3>
+				<Relationship_4>
+					<Name>LEDTriggersButton</Name>
+					<Establisher></Establisher>
+					<Description></Description>
+					<type>support</type>
+					<Input1>Button1</Input1>
+					<Input2>LED1</Input2>
+				</Relationship_4>
+				<Number_Relationships>4</Number_Relationships>
+			</Relationships>
+			<UnboundedService>
+				<Number_UnboundedServices>0</Number_UnboundedServices>
+			</UnboundedService>
+		</Entity_1>
+	</Atlas_Entities>
+</Atlas_IoTDDL>
