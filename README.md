@@ -1,2 +1,2 @@
 # IoTFinal
-Final project for IoT at UF
+Final project for Mobile Computing IoT at UF
